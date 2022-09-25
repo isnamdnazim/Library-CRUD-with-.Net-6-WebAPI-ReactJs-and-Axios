@@ -14,6 +14,20 @@ namespace AspNetCoreWithReactJs.Controllers
         {
                 _libraryService = libraryService;
         }
+        
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<Library> libraries = _libraryService.GetAll();
+            return Ok(libraries);
+        }
+
+        [HttpGet]
+        public IActionResult Search(string name)
+        {
+            List<Library> libraries = _libraryService.GetByName(name);
+            return Ok(libraries);
+        }
 
 
     }

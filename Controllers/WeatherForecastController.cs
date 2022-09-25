@@ -45,8 +45,8 @@ namespace AspNetCoreWithReactJs.Controllers
             //_libraryService.Update(libraryToUpdate);
 
             /* Update Library */
-            Library library = _libraryService.GetByName("Test Library Updated").FirstOrDefault();
-            _libraryService.Delete(library);
+            //Library library = _libraryService.GetByName("Test Library Updated").FirstOrDefault();
+            //_libraryService.Delete(library);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
