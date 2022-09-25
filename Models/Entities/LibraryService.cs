@@ -26,11 +26,19 @@ namespace AspNetCoreWithReactJs.Models.Entities
 
         public Library Save(Library library)
         {
-            return null;
+            _appDataContext.Libraries.Add(library);
+            _appDataContext.SaveChanges();
+
+            return library;
         }
         public Library Update(Library library)
         {
-            return null;
+            Library libraryFromDb = _appDataContext.Libraries.First(x => x.Id == library.Id);
+
+            _appDataContext.Entry(libraryFromDb).CurrentValues.SetValues(library);
+            _appDataContext.SaveChanges();
+
+            return library;
         }
         public Library Delete(Library library)
         {

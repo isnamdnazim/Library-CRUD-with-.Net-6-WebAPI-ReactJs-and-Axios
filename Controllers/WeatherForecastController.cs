@@ -31,8 +31,18 @@ namespace AspNetCoreWithReactJs.Controllers
             //Dependency Injection
             //_consoleWriter.write();
 
+            /* Get Library */
             //List<Library> llibraries = _libraryService.GetAll();
-            List<Library> llibraries = _libraryService.GetByName("");
+            //List<Library> llibraries = _libraryService.GetByName("Yale");
+
+            /* Add Library */
+            //Library library = new Library() {Name="Test Library", Address="Uttara, Dhaka", Telephone= "01710235886" };
+            //_libraryService.Save(library);
+
+            /* Update Library */
+            Library libraryToUpdate = _libraryService.GetByName("Test Library").First();
+            libraryToUpdate.Name = "Test Library Updated";
+            _libraryService.Update(libraryToUpdate);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
