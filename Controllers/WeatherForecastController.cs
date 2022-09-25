@@ -1,4 +1,6 @@
 ﻿using AspNetCoreWithReactJs.DependencyInjection;
+using AspNetCoreWithReactJs.Models.Dto;
+using AspNetCoreWithReactJs.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreWithReactJs.Controllers
@@ -14,18 +16,22 @@ namespace AspNetCoreWithReactJs.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IConsoleWriter _consoleWriter;
+        private readonly ILibraryService _libraryService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IConsoleWriter consoleWriter)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IConsoleWriter consoleWriter, ILibraryService libraryService)
         {
             _logger = logger;
             _consoleWriter = consoleWriter;
+            _libraryService = libraryService;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            //Dependency Injection
+            //_consoleWriter.write();
 
-            _consoleWriter.write();
+            List<Library> llibraries = _libraryService.GetAll();
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

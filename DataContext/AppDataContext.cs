@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AspNetCoreWithReactJs.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreWithReactJs.DataContext
 {
@@ -8,5 +9,6 @@ namespace AspNetCoreWithReactJs.DataContext
         {
 
         }
+        public DbSet<Library> Libraries { get; set; }
     }
 }

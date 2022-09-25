@@ -1,4 +1,4 @@
-namespace AspNetCoreWithReactJs
+namespace AspNetCoreWithReactJs.Models.Dto
 {
     public class WeatherForecast
     {

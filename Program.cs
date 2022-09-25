@@ -1,6 +1,7 @@
 using AspNetCoreWithReactJs.CustomMiddleware;
 using AspNetCoreWithReactJs.DataContext;
 using AspNetCoreWithReactJs.DependencyInjection;
+using AspNetCoreWithReactJs.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IConsoleWriter, ConsoleWriter>();
+builder.Services.AddTransient<ILibraryService, LibraryService>();
+
 builder.Services.AddDbContext<AppDataContext>(option => option.UseSqlServer(
         builder.Configuration.GetConnectionString("Connection")
     ));
