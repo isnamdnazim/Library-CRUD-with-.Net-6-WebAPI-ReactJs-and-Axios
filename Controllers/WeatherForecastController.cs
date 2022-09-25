@@ -31,7 +31,8 @@ namespace AspNetCoreWithReactJs.Controllers
             //Dependency Injection
             //_consoleWriter.write();
 
-            List<Library> llibraries = _libraryService.GetAll();
+            //List<Library> llibraries = _libraryService.GetAll();
+            List<Library> llibraries = _libraryService.GetByName("");
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

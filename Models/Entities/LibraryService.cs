@@ -16,7 +16,12 @@ namespace AspNetCoreWithReactJs.Models.Entities
         }
         public List<Library> GetByName(string name)
         {
-            return null;
+            var getByName = from libraries in _appDataContext.Libraries select libraries;
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                getByName = getByName.Where(x => x.Name.ToUpper().Contains(name.ToUpper()));
+            }
+            return getByName.ToList();
         }
 
         public Library Save(Library library)
