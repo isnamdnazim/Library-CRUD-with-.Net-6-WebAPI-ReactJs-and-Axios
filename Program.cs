@@ -16,6 +16,11 @@ builder.Services.AddDbContext<AppDataContext>(option => option.UseSqlServer(
         builder.Configuration.GetConnectionString("Connection")
     ));
 
+builder.Services.AddSwaggerGen(s =>
+{
+    s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo {Title = "Asp .Net Core API", Version = "v1"});
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +32,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    
+});
 app.UseRouting();
 app.UseMyMiddleware();
 
