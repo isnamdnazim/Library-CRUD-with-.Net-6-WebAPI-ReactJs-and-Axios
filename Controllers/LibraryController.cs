@@ -29,6 +29,25 @@ namespace AspNetCoreWithReactJs.Controllers
             return Ok(libraries);
         }
 
+        [HttpPut]
+        public IActionResult Update(Library library)
+        {
+            return Ok(_libraryService.Update(library));
+        }
+
+        [HttpPost]
+        public IActionResult Save(Library library)
+        {
+            return Ok(_libraryService.Save(library));
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Library library)
+        {
+            _libraryService.Delete(library);
+            return Ok();
+        }
+
 
     }
 }
