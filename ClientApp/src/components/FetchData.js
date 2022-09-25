@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MyFunctionalComponent from './MyComponents/MyFunctionalComponent';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -46,7 +47,8 @@ export class FetchData extends Component {
       <div>
         <h1 id="tabelLabel" >Weather forecast</h1>
         <p>This component demonstrates fetching data from the server.</p>
-        {contents}
+            {contents}
+            <MyFunctionalComponent name="Nazim" />
       </div>
     );
   }
