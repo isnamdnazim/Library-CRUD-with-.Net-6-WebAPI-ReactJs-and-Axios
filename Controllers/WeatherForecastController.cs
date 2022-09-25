@@ -40,9 +40,13 @@ namespace AspNetCoreWithReactJs.Controllers
             //_libraryService.Save(library);
 
             /* Update Library */
-            Library libraryToUpdate = _libraryService.GetByName("Test Library").First();
-            libraryToUpdate.Name = "Test Library Updated";
-            _libraryService.Update(libraryToUpdate);
+            //Library libraryToUpdate = _libraryService.GetByName("Test Library").FirstOrDefault();
+            //libraryToUpdate.Name = "Test Library Updated";
+            //_libraryService.Update(libraryToUpdate);
+
+            /* Update Library */
+            Library library = _libraryService.GetByName("Test Library Updated").FirstOrDefault();
+            _libraryService.Delete(library);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

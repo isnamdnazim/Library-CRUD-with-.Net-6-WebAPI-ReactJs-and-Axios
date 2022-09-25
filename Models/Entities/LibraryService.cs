@@ -42,7 +42,16 @@ namespace AspNetCoreWithReactJs.Models.Entities
         }
         public Library Delete(Library library)
         {
-            return null;
+            //Another way
+            _appDataContext.Entry(library).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+
+            //Another Way
+            //Library libraryFromDb = _appDataContext.Libraries.FirstOrDefault(x=> x.Id == library.Id);
+            //_appDataContext.Remove(libraryFromDb);
+
+            _appDataContext.SaveChanges();
+
+            return library;
         }
     }
 }
