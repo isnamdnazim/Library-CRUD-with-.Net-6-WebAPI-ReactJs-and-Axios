@@ -35,7 +35,7 @@ app.UseStaticFiles();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "React ASP .Net");
 });
 app.UseRouting();
 app.UseMyMiddleware();
