@@ -1,5 +1,6 @@
 ﻿import React, { useState } from 'react';
 import axios from 'axios';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 const LibraryComponent = (props) => {
 
@@ -18,7 +19,10 @@ const LibraryComponent = (props) => {
         axios.get(url).then(response =>{
             response.data.map(item => {item.isEditing = false;})
             setLibraryList(response.data);
-        })
+        }).catch(error =>{
+            setalertErrorMessage(error.message);
+            setshowAlertError(true);
+        });
     }
 
     //Update Libraries
@@ -26,15 +30,22 @@ const LibraryComponent = (props) => {
         let LibrariesNewRef = [...Librarieslist] //create a copy of the object with new reference(new space in memory) //spread operator
         const index = LibrariesNewRef.findIndex((item) => item.name == pLibrary.name);
         const {name, value} = pInput.target; //get the name of the value of the property changed
-        LibrariesNewRef[index] ={...pLibrary, [name]: value}; //update the specific property, keeping the others
+        LibrariesNewRef[index] = {...pLibrary, [name] : value}; //update the specific property, keeping the others
         setLibraryList(LibrariesNewRef);
     }
 
     const updateEditingStatus = (pLibrary, editFlag) =>{
-        let LibrariesNewRef = [...Librarieslist] 
-        const index = LibrariesNewRef.findIndex((item) => item.name == pLibrary.name);
-        LibrariesNewRef[index].isEditing = editFlag;
-        setLibraryList(LibrariesNewRef);
+        try{
+            let LibrariesNewRef = [...Librarieslist] 
+            const index = LibrariesNewRef.findIndex((item) => item.name == pLibrary.name);
+            //LibrariesNewRef[-1].isEditing = editFlag;
+            LibrariesNewRef[index].isEditing = editFlag;
+            setLibraryList(LibrariesNewRef);
+        }
+        catch(error){
+            setalertErrorMessage(error.message);
+            setshowAlertError(true);
+        }
     }
 
     const confirmUpdate=(pLibrary) => {
@@ -44,7 +55,10 @@ const LibraryComponent = (props) => {
             LibrariesNewRef[index] = pLibrary;
             LibrariesNewRef[index].isEditing = false;
             setLibraryList(LibrariesNewRef);
-        })
+        }).catch(error =>{
+            setalertErrorMessage(error.message);
+            setshowAlertError(true);
+        });
     }
 
     // Insert Libraries
@@ -62,7 +76,11 @@ const LibraryComponent = (props) => {
             LibrariesNewRef.push(response.data);
             setLibraryList(LibrariesNewRef);
             setlibraryToAdd({name: '', address: '', telephone: ''}); // clear the state
-        })
+            setshowAlertNewLibrary(true);
+        }).catch(error =>{
+            setalertErrorMessage(error.message);
+            setshowAlertError(true);
+        });
     }
 
     //Delete Libraries
@@ -74,8 +92,16 @@ const LibraryComponent = (props) => {
                 const index = LibrariesNewRef.findIndex((item) => item.name == pLibrary.name);
                 LibrariesNewRef.splice(index,1); // removing item from list
                 setLibraryList(LibrariesNewRef);
-            })
+            }).catch(error =>{
+                setalertErrorMessage(error.message);
+                setshowAlertError(true);
+            });
     }
+
+    // SweetAlert
+    const [showAlertNewLibrary,setshowAlertNewLibrary] = useState(false);
+    const [showAlertError,setshowAlertError] = useState(false);
+    const [alertErrorMessage,setalertErrorMessage] = useState('');
 
     return (
         <div className='mb-4'>
@@ -183,6 +209,29 @@ const LibraryComponent = (props) => {
                     </table>
                 </div>
             </div>
+
+            {/* Alert Library Added */}
+            {showAlertNewLibrary && 
+                <SweetAlert success
+                    confirmBtnText ="Ok"
+                    confirmBtnBsStyle ="success"
+                    title="Item Successfully Added!"
+                    onConfirm={()=>setshowAlertNewLibrary(false)}>
+                    Please Click "OK" to close
+                </SweetAlert>
+            }
+
+             {/* Alert Error */}
+             {showAlertError && 
+                <SweetAlert danger
+                    confirmBtnText ="Ok"
+                    confirmBtnBsStyle ="success"
+                    title="Something wrong happened...."
+                    onConfirm={()=>setshowAlertError(false)}>
+                    {alertErrorMessage}
+                </SweetAlert>
+            }
+
         </div>
     );
 };

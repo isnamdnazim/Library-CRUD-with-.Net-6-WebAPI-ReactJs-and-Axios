@@ -18,14 +18,14 @@ const AppRoutes = [
     path: '/fetch-data',
     element: <FetchData />
     },
-    {
-        path: '/myClassComponent',
-        element: <MyClassComponent />
-    },
-    {
-        path: '/myFunctionalComponent',
-        element: <MyFunctionalComponent />
-    },
+    // {
+    //     path: '/myClassComponent',
+    //     element: <MyClassComponent />
+    // },
+    // {
+    //     path: '/myFunctionalComponent',
+    //     element: <MyFunctionalComponent />
+    // },
     {
       path: '/libraryComponent',
       element: <LibraryComponent />
