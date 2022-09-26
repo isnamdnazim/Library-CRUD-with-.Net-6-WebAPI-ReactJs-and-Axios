@@ -30,6 +30,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//Alow Specific Origin
+//app.UseCors(options => options.WithOrigins("http......").AllowAnyMethod());
+
+//Any Origin
+app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true));
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSwagger();

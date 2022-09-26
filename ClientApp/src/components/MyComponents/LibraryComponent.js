@@ -1,7 +1,25 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import axios from 'axios';
 
 const LibraryComponent = (props) => {
+
+    //LIst Libraries
+    const [Librarieslist, setLibraryList] = useState([]);
+
+    // Search 
+    const [searchByPrmName,setSearchByPrmName] = useState('');
+
+    const handleInputChange = (event) =>{
+        setSearchByPrmName(event.target.value.toString());
+    }
+
+    const searchItems = () =>{
+        let url = searchByPrmName != "" ? ("https://localhost:7214/api/Library/Search?name=" + searchByPrmName) : "https://localhost:7214/api/Library/Get";
+        axios.get(url).then(response =>{
+            setLibraryList(response.data);
+        })
+    }
+
     return (
         <div>
             <h2>Library</h2>
@@ -17,12 +35,12 @@ const LibraryComponent = (props) => {
                             <div className='row'>
                                 <div className='col-md-7'>
                                     <label className='form-label'>Name</label>
-                                    <input className='form-control' placeholder='Enter Name' name='name' type='text'></input>
+                                    <input className='form-control' placeholder='Enter Name' name='name' type='text' onChange={handleInputChange.bind(this)} value={searchByPrmName}></input>
                                 </div>
                                 <div className='col-md-5'>
                                     <label className='form-label'>&nbsp;</label>
                                     <div className='btn-toolbar'>
-                                        <button type='button' className='btn btn-primary form-control'>Search</button>
+                                        <button type='button' onClick={searchItems.bind(this)} className='btn btn-primary form-control'>Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +95,7 @@ const LibraryComponent = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {/* <tr>
                                 <td><input className='form-control' type='text' value='Name'></input></td>
                                 <td><input className='form-control' type='text' value='Address'></input></td>
                                 <td><input className='form-control' type='text' value='Telephone'></input></td>
@@ -88,7 +106,15 @@ const LibraryComponent = (props) => {
                                         <button className='btn btn-danger mx-2'>Delete</button>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> */}
+                            {Librarieslist.map(item => 
+                                <tr key={item.name}>
+                                    <td>{item.name}</td>
+                                    <td>{item.address}</td>
+                                    <td>{item.telephone}</td>
+                                    
+                                </tr>
+                                )}
                         </tbody>
                     </table>
                 </div>
